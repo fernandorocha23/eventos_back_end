@@ -51,10 +51,6 @@ public class AuthController {
     public User getLoggedUser() {
         return userService.getLoggedUser();
     }
-
-//    @PostMapping("/login")
-//    public User login(LoginModel loginModel) {
-//        return userService.login(loginModel);
-//    }
+    
 
 }
