@@ -51,6 +51,5 @@ public class AuthController {
     public User getLoggedUser() {
         return userService.getLoggedUser();
     }
-    
 
 }
