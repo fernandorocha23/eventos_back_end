@@ -1,6 +1,7 @@
 package pt.iscte.event.model;
 
 import pt.iscte.event.Entities.Comment;
+import pt.iscte.event.Entities.User;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -13,7 +14,7 @@ public class CommentDTO {
     private String artistName;
     private LocalDateTime dateTime;
     private int likesCount;
-    private Set<UserDTO> usersLiked;
+    private Set<Long> usersLiked;
 
     public CommentDTO(Comment comment) {
         this.id = comment.getId();
@@ -24,7 +25,7 @@ public class CommentDTO {
         if (comment.getLikes() != null) {
             this.likesCount = comment.getLikes().size();
             this.usersLiked = comment.getLikes().stream()
-                    .map(UserDTO::new)
+                    .map(User::getId)
                     .collect(Collectors.toSet());
         } else {
             this.likesCount = 0;
@@ -78,10 +79,10 @@ public class CommentDTO {
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
     }
-    public Set<UserDTO> getUsersLiked() {
+    public Set<Long> getUsersLiked() {
         return usersLiked;
     }
-    public void setUsersLiked(Set<UserDTO> usersLiked) {
+    public void setUsersLiked(Set<Long> usersLiked) {
         this.usersLiked = usersLiked;
     }
 }
