@@ -1,5 +1,6 @@
 package pt.iscte.event.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,7 +11,8 @@ public class Role {
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private List<User> users;
 
     public Role(String name) {
