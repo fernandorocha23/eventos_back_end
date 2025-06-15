@@ -31,7 +31,6 @@ public class CommentDTO {
             this.likesCount = 0;
             this.usersLiked = null;
         }
-
     }
 
     public Long getId() {
