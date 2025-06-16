@@ -32,7 +32,7 @@ public class SecurityWebConfig {
             auth.requestMatchers(HttpMethod.GET,"/artists", "/artists/*", "/events", "/events/*", "/artists/*/comments").permitAll();
             auth.requestMatchers(HttpMethod.POST,"/artists", "/events").hasRole("ADMIN");
             auth.requestMatchers(HttpMethod.GET,"/users").hasRole("ADMIN");
-            auth.requestMatchers(HttpMethod.GET, "/user/comments", "/logout", "/user/logado").authenticated();
+            auth.requestMatchers(HttpMethod.GET, "/user/comments", "/logout", "/user/logado", "/users/{id}/profile").authenticated();
             auth.requestMatchers(HttpMethod.POST, "/artists/*/comments", "/comments/*/like", "/comments/*/dislike").authenticated();
             auth.requestMatchers("**").denyAll();
         });
