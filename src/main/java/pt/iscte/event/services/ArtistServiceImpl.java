@@ -72,19 +72,18 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public CommentDTO addLike(Long id) {
         User user = userService.getLoggedUser();
-        userRepository.save(user);
-        Comment comment = commentRepository.getReferenceById(id);
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
         comment.addLike(user);
         commentRepository.save(comment);
-        userRepository.save(user);
         return new CommentDTO(comment);
     }
 
     @Override
     public CommentDTO dislike(Long id) {
         User user = userService.getLoggedUser();;
-        Comment comment = commentRepository.getReferenceById(id);
-        userRepository.save(user);
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
         comment.removeLike(user);
         commentRepository.save(comment);
         return new CommentDTO(comment);
