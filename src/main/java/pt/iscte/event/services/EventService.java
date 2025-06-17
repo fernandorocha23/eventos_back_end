@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
-    Event createEvent(Event event);
+    EventDTO createEvent(EventDTO eventDTO);
 
     List<EventDTO> listEvents();
 

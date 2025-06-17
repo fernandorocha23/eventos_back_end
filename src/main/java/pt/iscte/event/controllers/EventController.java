@@ -19,8 +19,8 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping("/events")
-    public Event createEvent(@ModelAttribute Event event) {
-        return eventService.createEvent(event);
+    public EventDTO createEvent(@RequestBody EventDTO eventDTO) {
+        return eventService.createEvent(eventDTO);
     }
 
     @GetMapping("/events")

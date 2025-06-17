@@ -30,8 +30,10 @@ public class EventServiceImpl implements EventService {
     private EventArtistRepository eventArtistRepository;
 
     @Override
-    public Event createEvent(Event event) {
-        return eventRepository.save(event);
+    public EventDTO createEvent(EventDTO eventDTO) {
+        Event event = eventRepository.findByName(eventDTO.getName());
+        eventRepository.save(event);
+        return new EventDTO(event);
     }
 
     @Override
