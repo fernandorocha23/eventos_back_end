@@ -3,6 +3,7 @@ package pt.iscte.event.Entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,8 @@ public class Event {
     private String location;
     private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventArtist> perfomances;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<EventArtist> perfomances = new ArrayList<>();
 
     public Event() {}
 
@@ -26,8 +27,15 @@ public class Event {
         this.description = description;
         this.location = location;
         this.dateTime = dateTime;
-        this.perfomances = perfomances;
+        this.perfomances = (perfomances != null) ? perfomances : new ArrayList<>();
 
+    }
+
+    public Event(String name, String description, String location, LocalDateTime dateTime) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.dateTime = dateTime;
     }
 
     public Long getId() {

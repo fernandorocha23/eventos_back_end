@@ -5,6 +5,7 @@ import pt.iscte.event.Entities.Event;
 import pt.iscte.event.Entities.EventArtist;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,13 @@ public class EventDTO {
         this.description = event.getDescription();
         this.location = event.getLocation();
         this.startDateTime = event.getDateTime();
-        this.artists = event.getPerfomances().stream().map(EventArtistDTO::new).collect(Collectors.toList());
+        if (event.getPerfomances() != null) {
+            this.artists = event.getPerfomances().stream()
+                    .map(EventArtistDTO::new)
+                    .collect(Collectors.toList());
+        } else {
+            this.artists = Collections.emptyList();
+        }
     }
 
     public Long getId() {

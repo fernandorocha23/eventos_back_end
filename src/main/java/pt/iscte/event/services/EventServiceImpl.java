@@ -67,8 +67,7 @@ public class EventServiceImpl implements EventService {
                     "Sol da Caparica",
                     "Maior Festival de Música Lusófona de Portugal",
                     "Parque Urbano, Costa da Caparica",
-                    LocalDateTime.of(2025, 8, 15, 19, 30),
-                    null));
+                    LocalDateTime.of(2025, 8, 15, 19, 30)));
         }
         if (eventArtistRepository.count() == 0) {
             Artist rosinha = artistRepository.findByName("Rosinha");
