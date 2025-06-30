@@ -89,11 +89,11 @@ public class ArtistServiceImpl implements ArtistService {
         return new CommentDTO(comment);
     }
 
-    @PostConstruct
-    public void init(){
-        if (artistRepository.count() == 0){
-            artistRepository.save(new Artist("Rosinha", "Música Popular Portuguesa", "Rosinha.jpg", "youtube.com/rosinha", "Famosa Cantora e acordeonista portuguesa"));
-            artistRepository.save(new Artist("Quim Barreiros", "Pimba", "QuimBarreiros.jpeg", "youtube.com/quim_barreiros", "Lenda viva da música pimba portuguesa"));
-        }
-    }
+//    @PostConstruct
+//    public void init(){
+//        if (artistRepository.count() == 0){
+//            artistRepository.save(new Artist("Rosinha", "Música Popular Portuguesa", "Rosinha.jpg", "youtube.com/rosinha", "Famosa Cantora e acordeonista portuguesa"));
+//            artistRepository.save(new Artist("Quim Barreiros", "Pimba", "QuimBarreiros.jpeg", "youtube.com/quim_barreiros", "Lenda viva da música pimba portuguesa"));
+//        }
+//    }
 }

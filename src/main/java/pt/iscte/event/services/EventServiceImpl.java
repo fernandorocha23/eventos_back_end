@@ -16,6 +16,7 @@ import pt.iscte.event.repositories.EventRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,6 +63,11 @@ public class EventServiceImpl implements EventService {
 
     @PostConstruct
     public void init() {
+        if (artistRepository.count() == 0) {
+            artistRepository.save(new Artist("Rosinha", "Música Popular Portuguesa", "Rosinha.jpg", "youtube.com/rosinha", "Famosa Cantora e acordeonista portuguesa"));
+            artistRepository.save(new Artist("Quim Barreiros", "Pimba", "QuimBarreiros.jpeg", "youtube.com/quim_barreiros", "Lenda viva da música pimba portuguesa"));
+        }
+
         if (eventRepository.count() == 0) {
             eventRepository.save(new Event(
                     "Sol da Caparica",
@@ -69,14 +75,25 @@ public class EventServiceImpl implements EventService {
                     "Parque Urbano, Costa da Caparica",
                     LocalDateTime.of(2025, 8, 15, 19, 30)));
         }
+
         if (eventArtistRepository.count() == 0) {
-            Artist rosinha = artistRepository.findByName("Rosinha");
-            Artist quim = artistRepository.findByName("Quim Barreiros");
-            Event event = eventRepository.findByName("Sol da Caparica");
-            EventArtist performance = new EventArtist(rosinha, event, LocalDateTime.of(2025, 8, 15, 21, 30));
-            EventArtist performance2 = new EventArtist(quim, event, LocalDateTime.of(2025, 8, 15, 23, 30));
-            eventArtistRepository.save(performance);
-            eventArtistRepository.save(performance2);
+            Optional<Artist> rosinhaOpt = Optional.ofNullable(artistRepository.findByName("Rosinha"));
+            Optional<Artist> quimOpt = Optional.ofNullable(artistRepository.findByName("Quim Barreiros"));
+            Optional<Event> eventOpt = Optional.ofNullable(eventRepository.findByName("Sol da Caparica"));
+
+            if (rosinhaOpt.isPresent() && quimOpt.isPresent() && eventOpt.isPresent()) {
+                Artist rosinha = rosinhaOpt.get();
+                Artist quim = quimOpt.get();
+                Event event = eventOpt.get();
+
+                EventArtist performance = new EventArtist(rosinha, event, LocalDateTime.of(2025, 8, 15, 21, 30));
+                EventArtist performance2 = new EventArtist(quim, event, LocalDateTime.of(2025, 8, 15, 23, 30));
+
+                eventArtistRepository.save(performance);
+                eventArtistRepository.save(performance2);
+            } else {
+                System.err.println("AVISO: Não foi possível inicializar EventArtists. Artistas ou Evento não encontrados.");
+            }
         }
     }
 }
